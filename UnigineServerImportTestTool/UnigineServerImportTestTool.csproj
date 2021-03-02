@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <OutputPath>..\bin\</OutputPath>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <SkipPostBuild>false</SkipPostBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AssemblyName>UnigineServerImportTestTool_x64d</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;UNIGINE_DOUBLE;</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AssemblyName>UnigineServerImportTestTool_x64</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;UNIGINE_DOUBLE;</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnigineSharp">
+      <SpecificVersion>false</SpecificVersion>
+      <HintPath Condition="'$(Configuration)'=='Debug'">..\bin\UnigineSharpCore_double_x64d.dll</HintPath>
+      <HintPath Condition="'$(Configuration)'=='Release'">..\bin\UnigineSharpCore_double_x64.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet $(OutputPath)cspropgen_core_double_x64d.dll -p $(OutputPath)$(AssemblyName).dll -data_path ../data/" Condition="'$(Configuration)'=='Debug' And $(SkipPostBuild)=='false'" />
+    <Exec Command="dotnet $(OutputPath)cspropgen_core_double_x64.dll -p $(OutputPath)$(AssemblyName).dll -data_path ../data/" Condition="'$(Configuration)'=='Release' And $(SkipPostBuild)=='false'" />
+  </Target>
+
+</Project>

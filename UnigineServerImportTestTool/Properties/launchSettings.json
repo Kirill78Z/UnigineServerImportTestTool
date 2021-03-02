@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "UnigineServerImportTestTool": {
+      "commandName": "Project",
+      "commandLineArgs": "-data_path ../ -extern_plugin Importers/FbxImporter,Importers/IfcImporter"
+    }
+  }
+}
