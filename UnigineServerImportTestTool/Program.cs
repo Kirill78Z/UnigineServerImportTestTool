@@ -10,9 +10,9 @@ namespace UnigineServerImportTestTool
     {
         static void Main(string[] args)
         {
-            Unigine.Engine.Init(/*args*/new string[] 
+            Unigine.Engine.Init(/*args*/new string[]
             {
-                "-data_path", "../", "-extern_plugin", "Importers/FbxImporter,Importers/IfcImporter",
+                "-data_path", "../", "-video_app", "null", "-extern_plugin", "Importers/FbxImporter,Importers/IfcImporter",
             });
 
             System.Console.WriteLine();
@@ -34,7 +34,7 @@ namespace UnigineServerImportTestTool
                     string fn = System.IO.Path.GetFileNameWithoutExtension(file);
 
                     if (System.IO.Directory.Exists("../data/" + fn))
-                        System.IO.Directory.Delete("../data/" + fn);
+                        System.IO.Directory.Delete("../data/" + fn, true);
                     System.IO.Directory.CreateDirectory("../data/" + fn);
 
                     //препроцессоры
